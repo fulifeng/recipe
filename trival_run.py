@@ -2,6 +2,7 @@ import copy
 import json
 import nltk
 import numpy as np
+import operator
 from pycorenlp import StanfordCoreNLP
 import re
 
@@ -119,3 +120,41 @@ def preprocess_stanfordnlp_postag(ingredient_frequency_fname):
 #     data_path + 'ingredient_list_ingredient_frequency.csv'
 # )
 
+def clean_extracted_ingredient_frequency(fname):
+    number_pattern = re.compile('\d+')
+    special_character_pattern = re.compile('\.|,|$|\'|#|`|\(|\)')
+    stemmer = nltk.stem.SnowballStemmer('english')
+
+    ingredient_frequency = np.genfromtxt(fname, dtype=str, delimiter='\t')
+    print '#ingredients:', ingredient_frequency.shape
+
+    processed_ingredient_frequency = {}
+    for ingredient_kv in ingredient_frequency:
+        ingredient_kv[1] = number_pattern.sub('', ingredient_kv[1])
+        ingredient_kv[1] = special_character_pattern.sub('', ingredient_kv[1])
+        words = ingredient_kv[1].split(' ')
+        normalized_ingredient_words = []
+        for word in words:
+            if word.islower():
+                normalized_ingredient_words.append(stemmer.stem(word))
+        normalized_ingredient = ' '.join(sorted(normalized_ingredient_words))
+        if normalized_ingredient not in processed_ingredient_frequency.keys():
+            processed_ingredient_frequency[normalized_ingredient] = \
+                int(ingredient_kv[0])
+        else:
+            processed_ingredient_frequency[normalized_ingredient] = \
+                processed_ingredient_frequency[normalized_ingredient] + \
+                int(ingredient_kv[0])
+    print '#clean ingredients:', len(processed_ingredient_frequency)
+    ingredient_sorted = sorted(
+        processed_ingredient_frequency.items(),
+        key=operator.itemgetter(1), reverse=True
+    )
+    ofname = fname.replace('.csv', '_clean.csv')
+    with open(ofname, 'w') as fout:
+        for ingredient_frequency in ingredient_sorted:
+            fout.write(str(ingredient_frequency[1]) + '\t' +
+                       ingredient_frequency[0] + '\n')
+clean_extracted_ingredient_frequency(
+    data_path + 'ingredient_list_ingredient_frequency.csv'
+)

@@ -18,8 +18,8 @@
       <file leaf-file-name="extract_ingredient.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/extract_ingredient.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="388">
-              <caret line="453" column="4" lean-forward="false" selection-start-line="453" selection-start-column="4" selection-end-line="453" selection-end-column="4" />
+            <state relative-caret-position="572">
+              <caret line="283" column="51" lean-forward="true" selection-start-line="274" selection-start-column="8" selection-end-line="283" selection-end-column="51" />
               <folding>
                 <element signature="e#0#43#0" expanded="true" />
                 <element signature="e#2066#2827#0" expanded="false" />
@@ -44,11 +44,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="preprocess_ingredient.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="preprocess_ingredient.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/preprocess_ingredient.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="962">
-              <caret line="37" column="4" lean-forward="false" selection-start-line="37" selection-start-column="4" selection-end-line="37" selection-end-column="4" />
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="10" selection-end-column="57" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -56,17 +56,29 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="trival_run.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/trival_run.py">
+      <file leaf-file-name="postprocess_ingredient.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/postprocess_ingredient.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="744">
-              <caret line="121" column="0" lean-forward="true" selection-start-line="121" selection-start-column="0" selection-end-line="121" selection-end-column="0" />
+            <state relative-caret-position="260">
+              <caret line="10" column="0" lean-forward="true" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
-                <element signature="e#1576#3247#0" expanded="false" />
-                <element signature="e#4380#4850#0" expanded="false" />
-                <marker date="1500534221548" expanded="false" signature="136:1336" ph="..." />
-                <marker date="1500534221548" expanded="false" signature="3484:4288" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="trival_run.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/trival_run.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="224">
+              <caret line="140" column="21" lean-forward="true" selection-start-line="140" selection-start-column="21" selection-end-line="140" selection-end-column="21" />
+              <folding>
+                <element signature="e#0#11#0" expanded="true" />
+                <element signature="e#1592#3263#0" expanded="false" />
+                <element signature="e#4396#4866#0" expanded="false" />
+                <marker date="1500616507761" expanded="false" signature="152:1352" ph="..." />
+                <marker date="1500616507761" expanded="false" signature="3500:4304" ph="..." />
               </folding>
             </state>
           </provider>
@@ -85,11 +97,12 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/extract_measure_word.py" />
-        <option value="$PROJECT_DIR$/trival_run.py" />
         <option value="$PROJECT_DIR$/IngredientPreprocessor.py" />
         <option value="$PROJECT_DIR$/ingredient.py" />
         <option value="$PROJECT_DIR$/preprocess_ingredient.py" />
         <option value="$PROJECT_DIR$/extract_ingredient.py" />
+        <option value="$PROJECT_DIR$/postprocess_ingredient.py" />
+        <option value="$PROJECT_DIR$/trival_run.py" />
       </list>
     </option>
   </component>
@@ -291,7 +304,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1985" y="24" width="1215" height="1000" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -368,10 +381,10 @@
           <caret line="7" column="53" lean-forward="true" selection-start-line="6" selection-start-column="4" selection-end-line="7" selection-end-column="53" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
-            <element signature="e#1576#3247#0" expanded="false" />
-            <element signature="e#4380#4850#0" expanded="false" />
-            <marker date="1500534221548" expanded="false" signature="136:1336" ph="..." />
-            <marker date="1500534221548" expanded="false" signature="3484:4288" ph="..." />
+            <element signature="e#1592#3263#0" expanded="false" />
+            <element signature="e#4396#4866#0" expanded="false" />
+            <marker date="1500616507761" expanded="false" signature="152:1352" ph="..." />
+            <marker date="1500616507761" expanded="false" signature="3500:4304" ph="..." />
           </folding>
         </state>
       </provider>
@@ -385,25 +398,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/trival_run.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="744">
-          <caret line="121" column="0" lean-forward="true" selection-start-line="121" selection-start-column="0" selection-end-line="121" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-            <element signature="e#1576#3247#0" expanded="false" />
-            <element signature="e#4380#4850#0" expanded="false" />
-            <marker date="1500534221548" expanded="false" signature="136:1336" ph="..." />
-            <marker date="1500534221548" expanded="false" signature="3484:4288" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/IngredientPreprocessor.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="52">
           <caret line="2" column="50" lean-forward="true" selection-start-line="2" selection-start-column="50" selection-end-line="2" selection-end-column="50" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/preprocess_ingredient.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="10" selection-end-column="57" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/postprocess_ingredient.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="10" column="0" lean-forward="true" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -419,8 +438,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/extract_ingredient.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="388">
-          <caret line="453" column="4" lean-forward="false" selection-start-line="453" selection-start-column="4" selection-end-line="453" selection-end-column="4" />
+        <state relative-caret-position="572">
+          <caret line="283" column="51" lean-forward="true" selection-start-line="274" selection-start-column="8" selection-end-line="283" selection-end-column="51" />
           <folding>
             <element signature="e#0#43#0" expanded="true" />
             <element signature="e#2066#2827#0" expanded="false" />
@@ -432,12 +451,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/preprocess_ingredient.py">
+    <entry file="file://$PROJECT_DIR$/trival_run.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="962">
-          <caret line="37" column="4" lean-forward="false" selection-start-line="37" selection-start-column="4" selection-end-line="37" selection-end-column="4" />
+        <state relative-caret-position="224">
+          <caret line="140" column="21" lean-forward="true" selection-start-line="140" selection-start-column="21" selection-end-line="140" selection-end-column="21" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
+            <element signature="e#1592#3263#0" expanded="false" />
+            <element signature="e#4396#4866#0" expanded="false" />
+            <marker date="1500616507761" expanded="false" signature="152:1352" ph="..." />
+            <marker date="1500616507761" expanded="false" signature="3500:4304" ph="..." />
           </folding>
         </state>
       </provider>
