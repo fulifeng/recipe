@@ -35,8 +35,10 @@ class IngredientProcessor(object):
         self.bracket_pattern = re.compile('\(.*?\)')
         # (JJ | VBD | VBN) ? ((CC | ,) ? (JJ | VBD | VBN)) * ?
         # (NN | NNS | NNP | NNPS) +
+        # self.ingredient_pattern = re.compile(
+        #     '((A|,)?(G|c|e))*?(M|N|L|O)+')
         self.ingredient_pattern = re.compile(
-            '((A|,)?(G|c|e))*?(M|N|L|O)+')
+            '((A|,)?G)*?(M|N|L|O)+')
         self.measure_word_pattern = re.compile('B(M|N|L|O)\.?F?(M|N|L|O)')
         self.pure_noun_phrase_pattern = re.compile('(M|N|L|O)+')
         self.range_number_pattern = re.compile('-\d+')

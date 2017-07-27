@@ -411,20 +411,6 @@ class ingredient_extractor:
             tokenized_ingredient = nltk.word_tokenize(ingredient_string)
             postagged_ingredient_words = nltk.pos_tag(tokenized_ingredient)
 
-    def postprocess_ingredient_frequency(self, postagged_ingredient_frequency):
-        with open(postagged_ingredient_frequency) as fin:
-            data = json.load(fin)
-            print '#sentences', len(data['sentences'])
-            for sentences in data['sentences']:
-                tokens = []
-                postag_str = ''
-                for tagged_token in sentences['tokens']:
-                    tokens.append(tagged_token['word'])
-                    tag = tagged_token['pos']
-                    if tag in self.pos_tag_dict.keys():
-                        postag_str += self.pos_tag_dict[tag]
-                    elif tag == '.' or tag == ',':
-                        postag_str += tag
 
     def _get_pos_lable_string(self, postagged_ingredient_words):
         pos_label_string = ''

@@ -5,6 +5,7 @@ import numpy as np
 import operator
 from pycorenlp import StanfordCoreNLP
 import re
+from time import time
 
 
 def refine_measure_word(fname):
@@ -51,7 +52,7 @@ def refine_ingredient_phrase(ingredient_frequency_fname,
     normalize_mapping = {}
     max_length = 0
     for normalized_ingredient_kv in normalized_ingredient_frequency:
-        normalize_mapping[normalized_ingredient_kv[1]] = ''
+        normalize_mapping[normalized_ingredient_kv[1].strip()] = ''
         if len(normalized_ingredient_kv[1].strip()) > max_length:
             max_length = len(normalized_ingredient_kv[1].strip())
     print 'maximum length:', max_length
@@ -79,6 +80,10 @@ data_path = '/home/ffl/nus/MM/recipe/data/'
 #     data_path + 'ingredient_list_ingredient_frequency.csv',
 #     data_path + 'ingredient_list_ingredient_normalized_frequency.csv'
 # )
+refine_ingredient_phrase(
+    data_path + 'ingredient_list_clean_ingredient_frequency.csv',
+    data_path + 'ingredient_list_clean_ingredient_frequency_clean.csv'
+)
 
 
 def test_stanford_nlp():
@@ -107,36 +112,38 @@ def test_stanford_nlp():
 # test_stanford_nlp()
 
 
-def preprocess_stanfordnlp_postag(ingredient_frequency_fname):
-    ingredient_frequency = np.genfromtxt(ingredient_frequency_fname,
-                                         dtype=str, delimiter='\t')
-    print 'ingredient frequency shape:', ingredient_frequency.shape
-    ingredient_lines = []
-    for ingredient_kv in ingredient_frequency:
-        ingredient_lines.append(ingredient_kv[1].replace('.', '') + ' .\n')
-    with open(ingredient_frequency_fname.replace('csv', 'txt'), 'w') as fout:
-        fout.writelines(ingredient_lines)
-# preprocess_stanfordnlp_postag(
-#     data_path + 'ingredient_list_ingredient_frequency.csv'
-# )
-
-def clean_extracted_ingredient_frequency(fname):
-    number_pattern = re.compile('\d+')
-    special_character_pattern = re.compile('\.|,|$|\'|#|`|\(|\)')
+def clean_extracted_ingredient_frequency(fname, measure_word_fname):
+    number_pattern = re.compile('(-?)\d+(-?)')
+    special_character_pattern = re.compile(
+        '\.|,|$|\'|#|`|\(|\)|:|\*|~|%|( -)|=|<|>'
+    )
     stemmer = nltk.stem.SnowballStemmer('english')
 
     ingredient_frequency = np.genfromtxt(fname, dtype=str, delimiter='\t')
     print '#ingredients:', ingredient_frequency.shape
 
+    # read measure words
+    measure_word_frequency = np.genfromtxt(measure_word_fname, dtype=str,
+                                           delimiter='\t')
+    print '#measure words:', measure_word_frequency.shape
+    measure_word_set = set()
+    for measure_word in measure_word_frequency:
+        measure_word_set.add(measure_word[1])
+
     processed_ingredient_frequency = {}
-    for ingredient_kv in ingredient_frequency:
+    t1 = time()
+    for index, ingredient_kv in enumerate(ingredient_frequency):
         ingredient_kv[1] = number_pattern.sub('', ingredient_kv[1])
-        ingredient_kv[1] = special_character_pattern.sub('', ingredient_kv[1])
+        ingredient_kv[1] = special_character_pattern.sub(' ', ingredient_kv[1])
+        ingredient_kv[1] = ingredient_kv[1].strip('- ')
+        ingredient_kv[1] = ingredient_kv[1].replace('  ', ' ')
         words = ingredient_kv[1].split(' ')
         normalized_ingredient_words = []
         for word in words:
             if word.islower():
-                normalized_ingredient_words.append(stemmer.stem(word))
+                if word in measure_word_set or word + '.' in measure_word_set:
+                    continue
+            normalized_ingredient_words.append(stemmer.stem(word))
         normalized_ingredient = ' '.join(sorted(normalized_ingredient_words))
         if normalized_ingredient not in processed_ingredient_frequency.keys():
             processed_ingredient_frequency[normalized_ingredient] = \
@@ -145,6 +152,9 @@ def clean_extracted_ingredient_frequency(fname):
             processed_ingredient_frequency[normalized_ingredient] = \
                 processed_ingredient_frequency[normalized_ingredient] + \
                 int(ingredient_kv[0])
+        if index % 10000 == 9999:
+            print index, '{:.4f}'.format(time() - t1)
+            t1 = time()
     print '#clean ingredients:', len(processed_ingredient_frequency)
     ingredient_sorted = sorted(
         processed_ingredient_frequency.items(),
@@ -155,6 +165,29 @@ def clean_extracted_ingredient_frequency(fname):
         for ingredient_frequency in ingredient_sorted:
             fout.write(str(ingredient_frequency[1]) + '\t' +
                        ingredient_frequency[0] + '\n')
-clean_extracted_ingredient_frequency(
-    data_path + 'ingredient_list_ingredient_frequency.csv'
-)
+# clean_extracted_ingredient_frequency(
+#     data_path + 'ingredient_list_clean_ingredient_frequency.csv',
+#     data_path + 'mwf.txt'
+# )
+
+
+def preprocess_stanfordnlp_postag(ingredient_frequency_fname):
+    ingredient_frequency = np.genfromtxt(ingredient_frequency_fname,
+                                         dtype=str, delimiter='\t')
+    print 'ingredient frequency shape:', ingredient_frequency.shape
+    ingredient_lines = []
+    for ingredient_kv in ingredient_frequency:
+        # '\.|,|$|\'|#|`|\(|\)|:|\*|~|%|( -)|='
+        clean_text = ingredient_kv[1]
+        clean_text = clean_text.replace('$', ' $ ')
+        clean_text = clean_text.replace('#', ' # ')
+        clean_text = clean_text.replace('%', ' % ')
+        clean_text = clean_text.replace('*', ' * ')
+        clean_text = clean_text.replace(':', ' : ')
+        clean_text = clean_text.replace('~', ' ~ ')
+        ingredient_lines.append(clean_text + ' .\n')
+    with open(ingredient_frequency_fname.replace('csv', 'txt'), 'w') as fout:
+        fout.writelines(ingredient_lines)
+# preprocess_stanfordnlp_postag(
+#     data_path + 'ingredient_list_clean_ingredient_frequency.csv'
+# )

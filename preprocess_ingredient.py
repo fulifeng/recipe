@@ -6,8 +6,9 @@ class IngredientPreprocessor(IngredientProcessor):
     def __init__(self, fname):
         super(IngredientPreprocessor, self).__init__(fname)
         self.special_number_pattern = re.compile('(-|/)\d+')
-        self.bracket_pattern = re.compile('(\(|\[).*?(\)|\])')
-        self.half_bracket_pattern = re.compile('(.*?(\)|\]))|(\(|\[).*')
+        self.bracket_pattern = re.compile('(\(.*?\))|(\[.*?\])|(<.*?>)')
+        # self.round_bracket_pattern = re.compile('\(.*?\)')
+        self.half_bracket_pattern = re.compile('(.*?(\)|\]|>))|(\(|\[|<).*')
         self.special_character_pattern = re.compile('\.')
 
     # remove special characters, contents surrounded by bracket or text
